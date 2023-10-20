@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_mysqldb import MySQL
-
+#from flask_mysqldb import MySQL
+import mysql.connector
 
 
 app = Flask(__name__)
@@ -8,8 +8,8 @@ app.secret_key = 'many random bytes'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'crud'
+app.config['MYSQL_PASSWORD'] = '1234'
+app.config['MYSQL_DB'] = 'ssis_web'
 
 mysql = MySQL(app)
 
@@ -21,9 +21,6 @@ def Index():
     cur.execute("SELECT  * FROM students")
     data = cur.fetchall()
     cur.close()
-
-
-
 
     return render_template('index2.html', students=data )
 
@@ -54,9 +51,6 @@ def delete(id_data):
     return redirect(url_for('Index'))
 
 
-
-
-
 @app.route('/update',methods=['POST','GET'])
 def update():
 
@@ -74,12 +68,6 @@ def update():
         flash("Data Updated Successfully")
         mysql.connection.commit()
         return redirect(url_for('Index'))
-
-
-
-
-
-
 
 
 
