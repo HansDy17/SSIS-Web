@@ -16,15 +16,15 @@ class Students(object):
         self.oldid = oldid
 
     def addStudent(self,id, first, last, course, year, gender):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = f"INSERT INTO student(id,firstname,lastname,course_code,year,gender) \
                 VALUES('{id}','{first}','{last}','{course}','{year}','{gender}')"
         print(sql)
         cursor.execute(sql)
-        mysql.connection.commit()
+        mysql.connector.commit()
 
     def editStudent(self, id, first, last, course, year, gender):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         print(self.id)
 
         sql = f"UPDATE student SET id ='{id}',firstname ='{first}',lastname ='{last}'," \
@@ -34,7 +34,7 @@ class Students(object):
             cursor.execute(sql)
         except Exception as e:
             print(e)
-        mysql.connection.commit()
+        mysql.connector.commit()
 
     @classmethod
     def studentData(cls):
@@ -47,17 +47,17 @@ class Students(object):
     @classmethod
     def deleteStudent(cls, id):
         try:
-            cursor = mysql.connection.cursor()
+            cursor = mysql.connector.cursor()
             sql = f"DELETE from student where id = '{id}'"
             cursor.execute(sql)
-            mysql.connection.commit()
+            mysql.connector.commit()
             return True
         except Exception as e:
             print(e)
             return False
 
     def searchStudent(cls, id):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = f"SELECT * from student where id='{id}'"
         cursor.execute(sql)
         ids = cursor.fetchall()
@@ -72,15 +72,15 @@ class Courses(object):
         self.oldcode = oldcode
 
     def addCourse(self, code, name, ccode):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = f"INSERT INTO course(code,name,college_code) \
                 VALUES('{code}','{name}','{ccode}')"
         print(sql)
         cursor.execute(sql)
-        mysql.connection.commit()
+        mysql.connector.commit()
 
     def editCourse(self, code, name, ccode):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         print(self.code)
         sql = f"UPDATE course SET code ='{code}', name ='{name}',college_code ='{ccode}'" \
               f"WHERE code = '{str(code)}'"
@@ -88,7 +88,7 @@ class Courses(object):
             cursor.execute(sql)
         except Exception as e:
             print(e)
-        mysql.connection.commit()
+        mysql.connector.commit()
 
     @classmethod
     def courseData(cls):
@@ -101,17 +101,17 @@ class Courses(object):
     @classmethod
     def deleteCourse(cls, code):
         try:
-            cursor = mysql.connection.cursor()
+            cursor = mysql.connector.cursor()
             sql = f"DELETE FROM course where code = '{code}'"
             cursor.execute(sql)
-            mysql.connection.commit()
+            mysql.connector.commit()
             return True
         except Exception as e:
             print(e)
             return False
 
     def searchCourse(cls, code):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = f"SELECT * from course where code='{code}'"
         cursor.execute(sql)
         codes = cursor.fetchall()
@@ -125,15 +125,15 @@ class Colleges(object):
         self.oldcode = oldcode
 
     def addCollege(self, code, name):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = f"INSERT INTO college(code, name) \
                 VALUES('{code}','{name}')"
         print(sql)
         cursor.execute(sql)
-        mysql.connection.commit()
+        mysql.connector.commit()
 
     def editCollege(self, code, name):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         print(self.code)
         sql = f"UPDATE college SET code ='{code}', name ='{name}' WHERE code = '{str(code)}'"
         print(sql)
@@ -141,11 +141,11 @@ class Colleges(object):
             cursor.execute(sql)
         except Exception as e:
             print(e)
-        mysql.connection.commit()
+        mysql.connector.commit()
 
     @classmethod
     def collegeData(cls):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = "SELECT * from college"
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -155,17 +155,17 @@ class Colleges(object):
     def deleteCollege(cls, code):
         try:
             print(code, "code delete")
-            cursor = mysql.connection.cursor()
+            cursor = mysql.connector.cursor()
             sql = f"DELETE from college where code = '{code}'"
             cursor.execute(sql)
-            mysql.connection.commit()
+            mysql.connector.commit()
             return True
         except Exception as e:
             print(e)
             return False
 
     def searchCollege(cls, code):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = f"SELECT * from college where code='{code}'"
         print(sql, "SEARCH COLLEGE")
         cursor.execute(sql)

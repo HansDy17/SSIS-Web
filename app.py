@@ -23,9 +23,7 @@ cursor = mysql_conn.cursor(app)
 
 @app.route('/')
 def Index():
-
     data = models.Students.studentData()
-
     data1 = models.Courses.courseData()
 
     return render_template('index.html', students =data, courses = data1)
