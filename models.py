@@ -1,7 +1,7 @@
 from app import mysql
+import mysql.connector
 
 #from werkzeug.security import generate_password_hash, check_password_hash
-
 
 class Students(object):
 
@@ -38,7 +38,7 @@ class Students(object):
 
     @classmethod
     def studentData(cls):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = "SELECT * from student"
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -92,7 +92,7 @@ class Courses(object):
 
     @classmethod
     def courseData(cls):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connector.cursor()
         sql = "SELECT * from course"
         cursor.execute(sql)
         result = cursor.fetchall()
@@ -117,7 +117,7 @@ class Courses(object):
         codes = cursor.fetchall()
         return codes
 
-class College(object):
+class Colleges(object):
 
     def __init__(self, code = None, name = None, oldcode = None):
         self.code = code

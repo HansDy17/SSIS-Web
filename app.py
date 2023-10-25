@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import mysql.connector
 from datetime import datetime # add the date of student added
+import models
 
 app = Flask(__name__)
 
@@ -22,14 +23,10 @@ cursor = mysql_conn.cursor(app)
 
 @app.route('/')
 def Index():
-    cursor = mysql_conn.cursor()
-    cursor.execute("SELECT * FROM student")
-    data = cursor.fetchall()
 
-    cursor.execute("SELECT * FROM course")
-    data1 = cursor.fetchall()
+    data = models.Students.studentData()
 
-    cursor.close()
+    data1 = models.Courses.courseData()
 
     return render_template('index.html', students =data, courses = data1)
 
@@ -81,11 +78,8 @@ def delete(id):
 
 @app.route('/college')
 def college():
-    cursor = mysql_conn.cursor()
-    cursor.execute("SELECT * FROM college")
-    data = cursor.fetchall()
-    cursor.close()
 
+    data = models.Colleges.collegeData()
     return render_template('college.html', colleges =data)
 
 @app.route('/insert-college', methods = ['POST'])
@@ -129,12 +123,9 @@ def delete_college(id):
 
 @app.route('/course')
 def course():
-    cursor = mysql_conn.cursor()
-    cursor.execute("SELECT * FROM course")
-    data = cursor.fetchall()
 
-    cursor.execute("SELECT * FROM college")
-    data1 = cursor.fetchall()
+    data = models.Courses.courseData()
+    data1 = models.Colleges.collegeData()
     cursor.close()
 
     return render_template('course.html', courses =data, colleges=data1)
