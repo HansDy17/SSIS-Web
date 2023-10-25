@@ -34,7 +34,6 @@ def Index():
 def insert():
     if request.method == "POST":
         try:
-
             id = request.form['idnum']
             firstname = request.form['firstname']
             lastname = request.form['lastname']
@@ -42,8 +41,7 @@ def insert():
             year = request.form['year']
             gender = request.form['gender']
 
-            cursor.execute("INSERT INTO student(id, firstname, lastname, course_code, year, gender) VALUES(%s, %s, %s, %s, %s, %s)", (id, firstname, lastname, course, year, gender))
-            mysql_conn.commit()
+            models.Students.addStudent(id, firstname, lastname, course, year, gender)
             flash("Data inserted successfully!", "success")
         except mysql.connector.IntegrityError as e:
             flash("Error: This ID already exists. Please use a unique ID.", "error")
@@ -59,20 +57,15 @@ def update():
         course = request.form['course']
         year = request.form['year']
         gender = request.form['gender']
-
-        cursor = mysql_conn.cursor()
-        cursor.execute("UPDATE student SET id=%s, firstname=%s, lastname=%s, course_code=%s, year=%s, gender=%s WHERE id =%s", (id, firstname, lastname, course, year, gender, id))
-
+        
+        models.Students.editStudent(id, firstname, lastname, course, year, gender)
         flash("Data Updated Successfully!")
         mysql_conn.commit()
         return redirect(url_for('Index'))
 
 @app.route('/delete/<string:id>', methods=['POST', 'GET'])
 def delete(id):
-    cursor = mysql_conn.cursor()
-    cursor.execute('DELETE FROM student WHERE id = %s', (id,))
-    mysql_conn.commit()
-    
+    models.Students.deleteStudent(id)
     flash("Data deleted Successfully!")
     return redirect(url_for('Index'))
 
@@ -88,9 +81,7 @@ def insert_college():
         try:
             code = request.form['code']
             name = request.form['name']
-
-            cursor.execute("INSERT INTO college(code, name) VALUES(%s, %s)", (code, name))
-            mysql_conn.commit()
+            models.Colleges.addCollege(code, name)
             flash("Data inserted successfully!", "success")
         except mysql.connector.IntegrityError as e:
             flash("Error: This ID already exists. Please use a unique ID.", "error")        
@@ -104,7 +95,7 @@ def update_college():
         name = request.form['name']
 
         cursor = mysql_conn.cursor()
-        cursor.execute("UPDATE college SET code=%s, name=%s WHERE code =%s", (code, name, code))
+        models.Colleges.addCollege(code, name)  
 
         flash("Data Updated Successfully!")
         mysql_conn.commit()
@@ -112,11 +103,7 @@ def update_college():
     
 @app.route('/delete_college/<string:id>', methods=['POST', 'GET'])
 def delete_college(id):
-    cursor = mysql_conn.cursor()
-    cursor.execute('UPDATE course SET college_code = NULL WHERE college_code = %s', (id,))
-    cursor.execute('DELETE FROM college WHERE code = %s', (id,))
-
-    mysql_conn.commit()
+    models.Colleges.deleteCollege(id)
     
     flash("Data deleted Successfully!")
     return redirect(url_for('college'))
@@ -134,12 +121,11 @@ def course():
 def insert_course():
     if request.method == "POST":
         try:
-            course_code = request.form['course_code']
+            code = request.form['course_code']
             name = request.form['course_name']
             college_code = request.form['college']
 
-            cursor.execute("INSERT INTO course(code, name, college_code) VALUES(%s, %s, %s)", (course_code, name, college_code))
-            mysql_conn.commit()
+            models.Courses.addCourse(code, name, college_code)
             flash("Data inserted successfully!", "success")
 
         except mysql.connector.IntegrityError as e:
@@ -154,8 +140,7 @@ def update_course():
         name = request.form['course_name']
         college_code = request.form['college']
 
-        cursor = mysql_conn.cursor()
-        cursor.execute("UPDATE course SET code=%s, name=%s, college_code=%s WHERE code =%s", (code, name, college_code, code))
+        models.Courses.addCourse(code, name, college_code)
 
         flash("Data Updated Successfully!")
         mysql_conn.commit()
@@ -163,10 +148,7 @@ def update_course():
     
 @app.route('/delete_course/<string:id>', methods=['POST', 'GET'])
 def delete_course(id):
-    cursor = mysql_conn.cursor()
-    cursor.execute('UPDATE student SET course_code = NULL WHERE course_code = %s', (id,))
-    cursor.execute('DELETE FROM course WHERE code = %s', (id,))
-    mysql_conn.commit()
+    models.Courses.deleteCourse(id)
     
     flash("Data deleted Successfully!")
     return redirect(url_for('course'))

@@ -15,21 +15,21 @@ class Students(object):
         self.gender = gender
         self.oldid = oldid
 
-    def addStudent(self):
+    def addStudent(self,id, first, last, course, year, gender):
         cursor = mysql.connection.cursor()
         sql = f"INSERT INTO student(id,firstname,lastname,course_code,year,gender) \
-                VALUES('{self.id}','{self.firstname}','{self.lastname}','{self.course_code}','{self.year}','{self.gender}')"
+                VALUES('{id}','{first}','{last}','{course}','{year}','{gender}')"
         print(sql)
         cursor.execute(sql)
         mysql.connection.commit()
 
-    def editStudent(self):
+    def editStudent(self, id, first, last, course, year, gender):
         cursor = mysql.connection.cursor()
         print(self.id)
 
-        sql = f"UPDATE student SET id ='{self.id}',firstname ='{self.firstname}',lastname ='{self.lastname}'," \
-                f"course_code ='{self.course_code}',year_level ='{self.year}'," \
-                f"gender ='{self.gender}' WHERE id_number = '{self.oldid}'"
+        sql = f"UPDATE student SET id ='{id}',firstname ='{first}',lastname ='{last}'," \
+                f"course_code ='{course}',year_level ='{year}'," \
+                f"gender ='{gender}' WHERE id_number = '{id}'"
         try:
             cursor.execute(sql)
         except Exception as e:
@@ -71,19 +71,19 @@ class Courses(object):
         self.college_code = college_code
         self.oldcode = oldcode
 
-    def addCourse(self):
+    def addCourse(self, code, name, ccode):
         cursor = mysql.connection.cursor()
         sql = f"INSERT INTO course(code,name,college_code) \
-                VALUES('{self.code}','{self.name}','{self.college_code}')"
+                VALUES('{code}','{name}','{ccode}')"
         print(sql)
         cursor.execute(sql)
         mysql.connection.commit()
 
-    def editCourse(self):
+    def editCourse(self, code, name, ccode):
         cursor = mysql.connection.cursor()
         print(self.code)
-        sql = f"UPDATE course SET code ='{self.code}', name ='{self.name}',college_code ='{self.college_code}'" \
-              f"WHERE code = '{str(self.oldcode)}'"
+        sql = f"UPDATE course SET code ='{code}', name ='{name}',college_code ='{ccode}'" \
+              f"WHERE code = '{str(code)}'"
         try:
             cursor.execute(sql)
         except Exception as e:
@@ -124,18 +124,18 @@ class Colleges(object):
         self.name = name
         self.oldcode = oldcode
 
-    def addCollege(self):
+    def addCollege(self, code, name):
         cursor = mysql.connection.cursor()
         sql = f"INSERT INTO college(code, name) \
-                VALUES('{self.code}','{self.name}')"
+                VALUES('{code}','{name}')"
         print(sql)
         cursor.execute(sql)
         mysql.connection.commit()
 
-    def editCollege(self):
+    def editCollege(self, code, name):
         cursor = mysql.connection.cursor()
         print(self.code)
-        sql = f"UPDATE college SET code ='{self.code}', name ='{self.name}' WHERE code = '{str(self.oldcode)}'"
+        sql = f"UPDATE college SET code ='{code}', name ='{name}' WHERE code = '{str(code)}'"
         print(sql)
         try:
             cursor.execute(sql)
