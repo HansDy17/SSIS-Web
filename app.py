@@ -11,7 +11,7 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = '1234'
 app.config['MYSQL_DB'] = 'ssis_web'
 
-mysql_conn = mysql.connector.connect(
+mysql_conn = mysql.connector.connect( 
     host=app.config['MYSQL_HOST'],
     user=app.config['MYSQL_USER'],
     password=app.config['MYSQL_PASSWORD'],
