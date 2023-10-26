@@ -40,8 +40,20 @@ class Students(object):
         print(id)
 
         sql = f"UPDATE student SET id ='{id}',firstname ='{first}',lastname ='{last}'," \
-                f"course_code ='{course}',year_level ='{year}'," \
-                f"gender ='{gender}' WHERE id_number = '{id}'"
+                f"course_code ='{course}',year ='{year}'," \
+                f"gender ='{gender}' WHERE id = '{id}'"
+        try:
+            cursor.execute(sql)
+        except Exception as e:
+            print(e)
+        db_conn.commit()
+        cursor.close()
+
+    def editCourse(code, name, ccode):
+        cursor = db_conn.cursor()
+        print(code)
+        sql = f"UPDATE course SET code ='{code}', name ='{name}',college_code ='{ccode}'" \
+              f"WHERE code = '{str(code)}'"
         try:
             cursor.execute(sql)
         except Exception as e:

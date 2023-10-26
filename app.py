@@ -102,7 +102,7 @@ def update_college():
 
         cursor = mysql_conn.cursor()
         models.Colleges.editCollege(code, name)  
-
+        mysql_conn.commit()
         flash("Data Updated Successfully!")
         mysql_conn.commit()
         return redirect(url_for('college'))    
