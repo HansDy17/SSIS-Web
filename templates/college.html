@@ -24,10 +24,7 @@
                         {% endif %}
                         {% endwith %}
 
-
-                <table class="table table-striped">
-                    <div id ="stud-table">
-
+                <table class="table table-striped">                    	
                     <tr>
                         <th>Code</th>
                         <th>Name</th>
@@ -36,7 +33,7 @@
 
                     {% for row in colleges %}
 
-                    <tr>
+                    <tr id="collegeRow{{row.0}}">
                         <td>{{row.0}}</td>
                         <td>{{row.1}}</td>
 
@@ -146,6 +143,35 @@
         </div>
 
     </div>
+    <script type="text/javascript">
+        // Function to filter the table rows based on the search input
+        function filterTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toLowerCase();
+            table = document.querySelector(".table-striped");
+            tr = table.querySelectorAll("tr");
+    
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].querySelectorAll("td");
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break; // Show the row and move to the next row
+                        } else {
+                            tr[i].style.display = "none"; // Hide the row if it doesn't match the search
+                        }
+                    }
+                }
+            }
+        }
+    
+        // Add an event listener to the search input to trigger the filtering
+        document.getElementById("searchInput").addEventListener("input", filterTable);
+    </script>
+    
 
     {% endblock %}
 

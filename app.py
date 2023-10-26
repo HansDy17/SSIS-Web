@@ -67,6 +67,14 @@ def delete(id):
     flash("Data deleted Successfully!")
     return redirect(url_for('Index'))
 
+@app.route('/search/<string:id>', methods=['POST', 'GET'])
+def search(id):
+    if request.method=='POST':
+        id = request.form['search']
+        data = models.Students.searchStudent(id)        
+    
+    return render_template('student.html', result =data)
+
 @app.route('/college')
 def college():
 

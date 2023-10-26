@@ -7,7 +7,7 @@
 	
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSIS</title>
+    <title>{% block title %}SSIS{% endblock %}</title>
 
     <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" />
     <link rel="shortcut icon" href="{{ url_for('static', filename = 'teacher.png')}}"/>
@@ -16,37 +16,34 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
-    />
-
+    />	
+ 
 </head>
 
 <body>
 
 	<nav class="navbar">
-		<div class="navdiv">
-			
+		<div class="navdiv">			
 			<div class="col-sm-8 col-md-5">
 				<form class="navbar-form" role="search">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search" name="q">
+					<input type="text" id="searchInput" class="form-control" placeholder="Search" name="search">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 					</div>
 				</div>
 				</form>
 			</div>
-
+	
 			<ul>
 				<li><a href="/">Students</a></li>
 				<li><a href="/course">Courses</a></li>
 				<li><a href="/college">Colleges</a></li>
 				<button><a href="#">Logout</a></button>
 			</ul>
-
+	
 		</div>
 	</nav>
-    <div class="container">{% block content %} {% endblock %}</div>
-
 	<div class="glitch-wrapper">
         <div class="glitch" data-glitch="Simple Student Information Syste">Simple Student Information System</div>
         </div>
