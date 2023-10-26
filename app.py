@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import mysql.connector
 from datetime import datetime # add the date of student added
 import models
+from app import mysql
 
 app = Flask(__name__)
 
@@ -26,7 +27,7 @@ def Index():
     data = models.Students.studentData()
     data1 = models.Courses.courseData()
 
-    return render_template('index.html', students =data, courses = data1)
+    return render_template('student.html', students =data, courses = data1)
 
 @app.route('/insert', methods = ['POST'])
 def insert():
@@ -39,7 +40,7 @@ def insert():
             year = request.form['year']
             gender = request.form['gender']
 
-            models.Students.addStudent(id, firstname, lastname, course, year, gender)
+            models.Students.addStudent(id, firstname, lastname, course, year, gender,)
             flash("Data inserted successfully!", "success")
         except mysql.connector.IntegrityError as e:
             flash("Error: This ID already exists. Please use a unique ID.", "error")
@@ -58,7 +59,6 @@ def update():
         
         models.Students.editStudent(id, firstname, lastname, course, year, gender)
         flash("Data Updated Successfully!")
-        mysql_conn.commit()
         return redirect(url_for('Index'))
 
 @app.route('/delete/<string:id>', methods=['POST', 'GET'])
@@ -93,7 +93,7 @@ def update_college():
         name = request.form['name']
 
         cursor = mysql_conn.cursor()
-        models.Colleges.addCollege(code, name)  
+        models.Colleges.editCollege(code, name)  
 
         flash("Data Updated Successfully!")
         mysql_conn.commit()
@@ -138,7 +138,7 @@ def update_course():
         name = request.form['course_name']
         college_code = request.form['college']
 
-        models.Courses.addCourse(code, name, college_code)
+        models.Courses.editCourse(code, name, college_code)
 
         flash("Data Updated Successfully!")
         mysql_conn.commit()
@@ -146,6 +146,7 @@ def update_course():
     
 @app.route('/delete_course/<string:id>', methods=['POST', 'GET'])
 def delete_course(id):
+    
     models.Courses.deleteCourse(id)
     
     flash("Data deleted Successfully!")
