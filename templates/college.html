@@ -1,31 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colleges</title>
 
- 
-    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" />
-    <link rel="shortcut icon" href="{{ url_for('static', filename = 'teacher.png')}}"/>
 
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      crossorigin="anonymous"
-    />
-
-</head>
-<body>
     {% block body %}
     {% include "base.html" %}
 
-    <div class="container">
-        <div class="well text-center">
-            <h1>SSIS Practice</h1>
-        </div>
-
         <div class="container">
+            <div id = "table-container">
             <div class="row">
                 <div class="col md-12">
                     <h3>COLLEGE LIST <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#mymodal">Add Data</button></h3>
@@ -73,6 +52,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
         <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
 
@@ -169,12 +149,8 @@
     </div>
 
     {% endblock %}
-</body>
-
 
 <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery-3.2.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
 
 
-
-</html>

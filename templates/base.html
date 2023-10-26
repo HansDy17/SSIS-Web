@@ -5,7 +5,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="static/css/style.css">
 	
-	<title>Navigation Bar</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSIS</title>
+
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'teacher.png')}}"/>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+</head>
+
+<body>
+
 
 </head>
 <body>
@@ -34,5 +50,9 @@
 		</div>
 	</nav>
     <div class="container">{% block content %} {% endblock %}</div>
+
+	<div class="glitch-wrapper">
+        <div class="glitch" data-glitch="Simple Student Information Syste">Simple Student Information System</div>
+        </div>
 </body>
 </html>
