@@ -1,4 +1,4 @@
-from app import mysql
+#from app import mysql
 import mysql.connector
 
 #from werkzeug.security import generate_password_hash, check_password_hash

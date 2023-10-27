@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import mysql.connector
 from datetime import datetime # add the date of student added
-import app.models as models
-from app import mysql
+import models as models
+#from app import mysql
 
 app = Flask(__name__)
 
