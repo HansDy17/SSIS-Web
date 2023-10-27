@@ -1,7 +1,6 @@
 from flask import Flask
-import mysql
 import mysql.connector
-# from flask_mysql_connector import MySQL
+from flask_mysql_connector import MySQL
 # from flask_bootstrap import Bootstrap
 from config import DB_USERNAME, DB_PASSWORD, DB_NAME, DB_HOST, SECRET_KEY, BOOTSTRAP_SERVE_LOCAL
 # from flask_wtf.csrf import CSRFProtect
@@ -16,7 +15,7 @@ def create_app(test_config=None):
         MYSQL_USER=DB_USERNAME,
         MYSQL_PASSWORD=DB_PASSWORD,
         MYSQL_DATABASE=DB_NAME,
-        MYSQL_HOST=DB_HOST,
+        MYSQL_HOST=DB_HOST, 
         #BOOTSTRAP_SERVE_LOCAL=BOOTSTRAP_SERVE_LOCAL
     )
     # bootstrap.init_app(app)
