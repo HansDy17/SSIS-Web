@@ -5,7 +5,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col md-12">
+                <div class="col-md-10 col-md-offset-1">
                     <h3>COLLEGE LIST <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#mymodal">Add Data</button></h3>
                 
                     {% with messages = get_flashed_messages() %}
@@ -25,12 +25,14 @@
                         {% endwith %}
 
                 <table class="table table-striped">  
-                    <div id ="stud-table"></div>                  	
+                    <div id ="stud-table"></div>   
+                    <thead >           	
                     <tr>
                         <th>Code</th>
                         <th>Name</th>
-                        <th><em class="fa fa-cog"></em></th>
+                        <th ><em class="fa fa-cog"></em></th>
                     </tr>
+                    </thead>   
 
                     {% for row in colleges %}
 
