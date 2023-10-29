@@ -49,17 +49,6 @@ class Students(object):
         db_conn.commit()
         cursor.close()
 
-    def editCourse(code, name, ccode):
-        cursor = db_conn.cursor()
-        print(code)
-        sql = f"UPDATE course SET code ='{code}', name ='{name}',college_code ='{ccode}'" \
-              f"WHERE code = '{str(code)}'"
-        try:
-            cursor.execute(sql)
-        except Exception as e:
-            print(e)
-        db_conn.commit()
-        cursor.close()
 
     @classmethod
     def studentData(cls):
@@ -81,8 +70,10 @@ class Students(object):
             return True
         except Exception as e:
             print(e)
-            cursor.close()
+            db_conn.rollback()  # Rollback the transaction on error
             return False
+        finally:
+            cursor.close()
 
     def searchStudent(cls, id):
         cursor = db_conn.cursor()
@@ -135,13 +126,17 @@ class Courses(object):
         try:
             cursor = db_conn.cursor()
             sql = f"DELETE FROM course where code = '{code}'"
-            cursor.execute(sql)
+            sql2 =f" UPDATE student SET course_code = NULL WHERE course_code ='{code}'"
+            cursor.execute(sql2)
+            cursor.execute(sql)  
             db_conn.commit()
-            cursor.close()
             return True
         except Exception as e:
             print(e)
+            db_conn.rollback()  # Rollback the transaction on error
             return False
+        finally:
+            cursor.close()
             
 
     def searchCourse(cls, code):
@@ -195,13 +190,17 @@ class Colleges(object):
             print(code, "code delete")
             cursor = db_conn.cursor()
             sql = f"DELETE from college where code = '{code}'"
-            cursor.execute(sql)
+            sql2 =f" UPDATE course SET college_code = NULL WHERE college_code ='{code}'"
+            cursor.execute(sql2)
+            cursor.execute(sql)            
             db_conn.commit()
-            cursor.close()
             return True
         except Exception as e:
             print(e)
+            db_conn.rollback()  # Rollback the transaction on error
             return False
+        finally:
+            cursor.close()
 
     def searchCollege(cls, code):
         cursor = db_conn.cursor()
