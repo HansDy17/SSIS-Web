@@ -75,8 +75,18 @@
                         <h4 class="modal-title">Please update Data</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="{{url_for('student_bp.update')}}" method="POST">
+                        <form action="{{url_for('student_bp.update')}}" method="POST" enctype="multipart/form-data">
                             
+                            <div class="text-center">
+                                {% if row.6 %} {# Assuming row.6 contains the image URL #}
+                                    <img src="{{ row.6 }}" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 150px; height: 150px;">
+                                {% else %}
+                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 150px; height: 150px;">
+                                {% endif %}
+                                <h6>Upload a different photo...</h6>
+                                <input type="file" class="text-center center-block file-upload" name="id_upload" accept="image/*">
+                            </div></hr><br>
+
                             <div  class="form-group">
 
                                 <label>ID Number:</label>
@@ -158,7 +168,14 @@
                         <h4 class="modal-title">Please insert Data</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="{{url_for('student_bp.insert')}}" method="POST">
+                        <form action="{{url_for('student_bp.insert')}}" method="POST" enctype="multipart/form-data">
+
+
+                            <div class="text-center">
+                                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                                <h6>Upload a photo...</h6>
+                                <input type="file" class="text-center center-block file-upload" name="id_upload" accept="image/*">
+                            </div></hr><br>
 
                             <div  class="form-group">
 

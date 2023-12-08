@@ -3,6 +3,9 @@ from flask import Flask
 # from flask_bootstrap import Bootstrap
 from config import DB_USERNAME, DB_PASSWORD, DB_NAME, DB_HOST, SECRET_KEY, BOOTSTRAP_SERVE_LOCAL
 # from flask_wtf.csrf import CSRFProtect
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
 
 # mysql = MySQL()
 # bootstrap = Bootstrap()
@@ -16,6 +19,12 @@ def create_app(test_config=None):
         MYSQL_DATABASE=DB_NAME,
         MYSQL_HOST=DB_HOST, 
         BOOTSTRAP_SERVE_LOCAL=BOOTSTRAP_SERVE_LOCAL
+    )
+          
+    cloudinary.config( 
+    cloud_name = "dpj7nflp7", 
+    api_key = "823743778694381", 
+    api_secret = "Uge4whwQhtHws-LmdtSNC4rCocM" 
     )
     # bootstrap.init_app(app)
     #mysql.init_app(app)

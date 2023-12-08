@@ -26,22 +26,22 @@ class Students(object):
         self.gender = gender
         self.oldid = oldid
 
-    def addStudent(id, first, last, course, year, gender):
+    def addStudent(id, first, last, course, year, gender, id_upload):
         cursor = db_conn.cursor()
-        sql = f"INSERT INTO student(id,firstname,lastname,course_code,year,gender) \
-                VALUES('{id}','{first}','{last}','{course}','{year}','{gender}')"
+        sql = f"INSERT INTO student(id,firstname,lastname,course_code,year,gender,id_upload) \
+                VALUES('{id}','{first}','{last}','{course}','{year}','{gender}','{id_upload}')"
         print(sql)
         cursor.execute(sql)
         db_conn.commit()
         cursor.close()
 
-    def editStudent(id, first, last, course, year, gender):
+    def editStudent(id, first, last, course, year, gender, id_upload):
         cursor = db_conn.cursor()
         print(id)
 
         sql = f"UPDATE student SET id ='{id}',firstname ='{first}',lastname ='{last}'," \
                 f"course_code ='{course}',year ='{year}'," \
-                f"gender ='{gender}' WHERE id = '{id}'"
+                f"gender ='{gender}', id_upload='{id_upload}' WHERE id = '{id}'"
         try:
             cursor.execute(sql)
         except Exception as e:
