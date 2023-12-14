@@ -31,6 +31,7 @@
                     
                     <thead>
                     <tr>
+                        <th>Profile</th>
                         <th>ID Number</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -43,8 +44,16 @@
 
                     {% for row in students %}
 
-                    <tr id="studentRow{{row.0}}">
-
+                        <tr id="studentRow{{row.0}}">
+                        <td>
+                            <div class="text-center">
+                                {% if row.6 %} {# Assuming row.6 contains the image URL #}
+                                    <img src="{{ row.6 }}" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 50px; height: 50px;">
+                                {% else %}
+                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 50px; height: 50px;">
+                                {% endif %}
+                            </div>
+                        </td>
                         <td>{{row.0}}</td>
                         <td>{{row.1}}</td>
                         <td>{{row.2}}</td>
@@ -59,7 +68,6 @@
                             <a href="/delete/{{row.0}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{row.1}} {{row.2}}?')"><em class="fa fa-trash"></em></a>
 
                         </td>
-
                     </tr>
 
                 </div>
