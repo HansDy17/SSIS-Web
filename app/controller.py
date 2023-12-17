@@ -14,8 +14,9 @@ student_bp = Blueprint('student_bp', __name__)
 def Index():
     data = Students.studentData()
     data1 = Courses.courseData()
+    data2 =  Colleges.collegeData1()
 
-    return render_template('student.html', students =data, courses = data1)
+    return render_template('student.html', students =data, courses = data1, colleges = data2)
 
 @student_bp.route('/insert', methods = ['POST', 'GET'])
 def insert():
@@ -34,13 +35,17 @@ def insert():
                 if id_upload.filename != '':
                     allowed_ext = {'png', 'jpeg', 'jpg'}
                     if '.' in id_upload.filename and id_upload.filename.rsplit('.', 1)[1].lower() in allowed_ext:
-                        print(f"Cloud Name: {cloudinary.config().cloud_name}")
-                        print(f"API Key: {cloudinary.config().api_key}")
-                        print(f"API Secret: {cloudinary.config().api_secret}")
-                        result = cloudinary.uploader.upload(id_upload)
-                        result_url = result["secure_url"]
+                        if id_upload.content_length > 10 * 1024 * 1024:  # 10 MB limit
+                            flash('Image size should be 30 MB or below.', 'error')
+                        else:
+                            print(f"Cloud Name: {cloudinary.config().cloud_name}")
+                            print(f"API Key: {cloudinary.config().api_key}")
+                            print(f"API Secret: {cloudinary.config().api_secret}")
+                            result = cloudinary.uploader.upload(id_upload)
+                            result_url = result["secure_url"]
                     else:
                          flash('Invalid file format for image. Please upload a valid image.', 'error')
+                         return redirect(url_for('student_bp.Index'))
 
             Students.addStudent(id, firstname, lastname, course, year, gender, result_url)
             flash("Data inserted successfully!", "success")
@@ -66,13 +71,17 @@ def update():
                 if id_upload.filename != '':
                     allowed_ext = {'png', 'jpeg', 'jpg'}
                     if '.' in id_upload.filename and id_upload.filename.rsplit('.', 1)[1].lower() in allowed_ext:
-                        print(f"Cloud Name: {cloudinary.config().cloud_name}")
-                        print(f"API Key: {cloudinary.config().api_key}")
-                        print(f"API Secret: {cloudinary.config().api_secret}")
-                        result = cloudinary.uploader.upload(id_upload)
-                        result_url = result["secure_url"]
+                        if id_upload.content_length > 30 * 1024 * 1024:  # 30 MB limit
+                            flash('Image size should be 30 MB or below.', 'error')
+                        else:
+                            print(f"Cloud Name: {cloudinary.config().cloud_name}")
+                            print(f"API Key: {cloudinary.config().api_key}")
+                            print(f"API Secret: {cloudinary.config().api_secret}")
+                            result = cloudinary.uploader.upload(id_upload)
+                            result_url = result["secure_url"]
                     else:
                          flash('Invalid file format for image. Please upload a valid image.', 'error')
+                         return redirect(url_for('student_bp.Index'))
                                 
             Students.editStudent(id, firstname, lastname, course, year, gender, result_url)
             flash("Data Updated Successfully!")

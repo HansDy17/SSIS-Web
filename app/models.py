@@ -210,3 +210,17 @@ class Colleges(object):
         codec = cursor.fetchall()
         cursor.close()
         return codec
+    
+    @classmethod
+    def collegeData1(cls):
+        cursor = db_conn.cursor()
+        sql = """
+            SELECT college.*, GROUP_CONCAT(DISTINCT course.code ORDER BY course.code ASC SEPARATOR ', ') as course_codes
+            FROM college
+            LEFT JOIN course ON college.code = course.college_code
+            GROUP BY college.code
+        """
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        cursor.close()
+        return result
